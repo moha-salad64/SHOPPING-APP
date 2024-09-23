@@ -3,39 +3,51 @@ import { FaTrash, FaPencilAlt } from 'react-icons/fa';
 
 const FormList = ({ items, handleRemoveItem, setEditingItem }) => {
     return (
-        <div className='container'>
+        <div className='container mx-auto p-4'>
             <div className='main-container'>
-                <h1>Shopping List</h1>
-                <div className='item-list'>
-                    {items.length > 0 ? (
-                        items.map((item, index) => (
-                            <div key={item.id} className='item-container'>
-                                <div className='item-name'>
-                                    <span>Item-Name: {item.name}</span>
-                                    <span>Price: ${item.price}</span>
-                                    <span>N-Of-Item: {item.number}</span>
-                                </div>
-                                <div>
-                                    <button onClick={() => handleRemoveItem(index)} className='remove-item'>
-                                        <FaTrash />
-                                    </button>
-                                    <button onClick={() => setEditingItem(item)} className='edit-item'>
-                                        <FaPencilAlt />
-                                    </button>
-                                </div>
-                            </div>
-                        ))
-                    ) : (
-                        <p>No Items Found</p>
-                    )}
-                </div>
-                <div>
-                    {items.length > 0 && (
-                        <div className='total-item'>
-                            Total Items: {items.length}
-                        </div>
-                    )}
-                </div>
+                <h1 className='text-2xl font-bold mb-4'>Shopping List</h1>
+                {items.length > 0 ? (
+                    <table className='min-w-full table-auto border-collapse border border-gray-300'>
+                        <thead>
+                            <tr className='bg-gray-200'>
+                                <th className='border border-gray-300 px-4 py-2'>Item Name</th>
+                                <th className='border border-gray-300 px-4 py-2'>Price</th>
+                                <th className='border border-gray-300 px-4 py-2'>Number of Items</th>
+                                <th className='border border-gray-300 px-4 py-2'>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {items.map((item, index) => (
+                                <tr key={item.id} className='bg-white'>
+                                    <td className='border border-gray-300 px-4 py-2'>{item.name}</td>
+                                    <td className='border border-gray-300 px-4 py-2'>${item.price}</td>
+                                    <td className='border border-gray-300 px-4 py-2'>{item.number}</td>
+                                    <td className='border border-gray-300 px-4 py-2'>
+                                        <button
+                                            onClick={() => handleRemoveItem(index)}
+                                            className='text-red-500 hover:text-red-700 mr-3'
+                                        >
+                                            <FaTrash />
+                                        </button>
+                                        <button
+                                            onClick={() => setEditingItem(item)}
+                                            className='text-blue-500 hover:text-blue-700' 
+                                        >
+                                            <FaPencilAlt />
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                ) : (
+                    <p className='text-center text-gray-500'>No Items Found</p>
+                )}
+                {items.length > 0 && (
+                    <div className='total-item mt-4'>
+                        <p className='text-lg font-semibold'>Total Items: {items.length}</p>
+                    </div>
+                )}
             </div>
         </div>
     );
